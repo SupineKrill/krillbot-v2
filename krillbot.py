@@ -4,6 +4,12 @@ import aiohttp
 
 
 client = discord.Client()
+krill_player = None
+class player_obj(object):
+    def __init__(self, cahnnel_to_join):
+        self.channel_to_join = channel_to_join
+    def print_message():
+        print("Hello")
 
 @client.event
 async def on_ready():
@@ -11,6 +17,13 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
+    for server in client.servers:
+        for channel in server.channels:
+            if str(channel.type) == "voice":
+                if not discord.opus.is_loaded():
+                    discord.opus.load_opus('/usr/local/lib/libopus.so')
+                global krill_player 
+                krill_player = player_obj(channel)
 
 #Main event for controlling all actions on message
 @client.event
@@ -31,7 +44,6 @@ async def on_message(message):
 
 async def return_url(url):
     async with aiohttp.request('GET', url) as response:
-        print(response.headers)
         return response.url
 
 #Token and running bot stuff
