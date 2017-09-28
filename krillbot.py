@@ -5,11 +5,19 @@ import aiohttp
 
 client = discord.Client()
 krill_player = None
-class player_obj(object):
-    def __init__(self, cahnnel_to_join):
+class player_obj:
+    def __init__(self, channel_to_join):
         self.channel_to_join = channel_to_join
-    def print_message():
+    async def print_message(self):
         print("Hello")
+    async def join_server(self):
+        voice_channel = await client.join_voice_channel(self.channel_to_join)
+        player = await voice_channel.create_ytdl_player('https://www.youtube.com/watch?v=3mUfOs-CTCw')
+        player.volume = 0.5
+        player.start()
+        print("Joined voice channel {}".format(channel))
+    async def print_server(self):
+        print(player)
 
 @client.event
 async def on_ready():
@@ -24,6 +32,9 @@ async def on_ready():
                     discord.opus.load_opus('/usr/local/lib/libopus.so')
                 global krill_player 
                 krill_player = player_obj(channel)
+                await krill_player.print_message()
+                await krill_player.join_server()
+                await krill_player.print_server()
 
 #Main event for controlling all actions on message
 @client.event
