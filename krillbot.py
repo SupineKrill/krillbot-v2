@@ -1,6 +1,6 @@
 import discord
 import asyncio
-import requests
+import aiohttp
 
 
 client = discord.Client()
@@ -12,7 +12,7 @@ async def on_ready():
     print(client.user.id)
     print('------')
 
-
+#Main event for controlling all actions on message
 @client.event
 async def on_message(message):
     if message.content == '`exit':
@@ -23,17 +23,20 @@ async def on_message(message):
         else:
             await client.send_message(message.channel, "Only available for SupineKrill")
     elif message.content[:7] == "`google":
-        #Google I'm Feeling Lucky response based on input
+        #Return I'm feeling lucky result from google
         message_content = (str(message.content)).split()[1:]
         if message_content != []:
-                url = "http://www.google.com/search?q={}&btnI".format('+'.join(message_content))
-                response = requests.get(url)
-                while response.url == url:
-                    reponse = requests.get(url)
-                await client.send_message(message.channel, response.url)
-                
-                
+            url = await return_url("http://www.google.com/search?q={}&btnI".format('+'.join(message_content)))
+            await client.send_message(message.channel, url)
+
+async def return_url(url):
+    async with aiohttp.request('GET', url) as response:
+        print(response.headers)
+        return response.url
+
+#Token and running bot stuff
 with open('token.txt', 'r') as myfile:
     client_token = myfile.read()
 client.run(client_token)
 client.close()
+    
