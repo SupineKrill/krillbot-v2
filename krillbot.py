@@ -73,12 +73,12 @@ async def on_message(message):
         # Return I'm feeling lucky result from google
         message_content = (str(message.content)).split()[1:]
         if message_content != []:
-            url = await return_url(f"http://www.google.com/search?q={'+'.join(message_content)}&btnI")
+            url = await return_url("http://www.google.com/search?q={}&btnI".format('+'.join(message_content)))
             await client.send_message(message.channel, url)
     elif message.content[:8] == "`youtube":
         message_content = (str(message.content)).split()[1:]
         if message_content != []:
-            url = await return_url(f"http://www.google.com/search?q={'+'.join(message_content)}+site%3Ayoutube.com&btnI")
+            url = await return_url("http://www.google.com/search?q={}+site%3Ayoutube.com&btnI".format('+'.join(message_content)))
             await krill_player.play_song(url)
     elif message.content == "`stop music":
         await krill_player.stop_player()
