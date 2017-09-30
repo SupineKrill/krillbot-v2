@@ -1,6 +1,7 @@
 import discord
 import asyncio
 import aiohttp
+from discord.ext import commands
 
 
 client = discord.Client()
@@ -25,10 +26,6 @@ class player_obj:
 
     async def stop_player(self):
         self.player.stop()
-        await self.vc_disc()
-        print("disc")
-
-    async def vc_disc(self):
         await self.voice_channel.disconnect()
         self.player = None
         self.voice_channel = None
