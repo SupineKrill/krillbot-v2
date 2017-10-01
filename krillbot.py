@@ -31,7 +31,7 @@ class player_obj:
         self.player = None
         self.voice_channel = None
         
-    async def set_volume(self, volume_to_set)
+    async def set_volume(self, volume_to_set):
         try:
             self.player_volume = float(volume_to_set)
         except:
