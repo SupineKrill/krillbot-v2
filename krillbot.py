@@ -90,7 +90,7 @@ async def on_message(message):
     elif message.content == "`stop music":
         await krill_player.stop_player()
     elif message.content[:7] == "`volume":
-        await krill_player.set_volume(message.content[8:11])
+        await krill_player.set_volume(message.content[8:])
 
 
 async def return_url(url):
