@@ -22,7 +22,7 @@ class player_obj:
         except:
             self.voice_channel = await client.join_voice_channel(self.channel_to_join)
             self.player = await self.voice_channel.create_ytdl_player(song_url, after=my_after)
-            self.player.volume = player_volume
+            self.player.volume = self.player_volume
             self.player.start()
 
     async def stop_player(self):
