@@ -34,6 +34,7 @@ class player_obj:
     async def set_volume(self, volume_to_set):
         try:
             self.player_volume = float(volume_to_set)
+            self.player.volume = float(volume_to_set)
         except:
             await client.send_message(message.channel, 'Enter a float value. (0.0-1.0)')
 
