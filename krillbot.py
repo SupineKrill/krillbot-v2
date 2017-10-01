@@ -12,6 +12,7 @@ class player_obj:
 
     def __init__(self, channel_to_join):
         self.channel_to_join = channel_to_join
+        self.player_volume = 0.05
         self.player = None
         self.voice_channel = None
 
@@ -21,7 +22,7 @@ class player_obj:
         except:
             self.voice_channel = await client.join_voice_channel(self.channel_to_join)
             self.player = await self.voice_channel.create_ytdl_player(song_url, after=my_after)
-            self.player.volume = 0.5
+            self.player.volume = player_volume
             self.player.start()
 
     async def stop_player(self):
@@ -29,6 +30,12 @@ class player_obj:
         await self.voice_channel.disconnect()
         self.player = None
         self.voice_channel = None
+        
+    async def set_volume(self, volume_to_set)
+        try:
+            self.player_volume = float(volume_to_set)
+        except:
+            await client.send_message(message.channel, 'Enter a float value. (0.0-1.0)')
 
 
 def my_after():
@@ -82,6 +89,8 @@ async def on_message(message):
             await krill_player.play_song(url)
     elif message.content == "`stop music":
         await krill_player.stop_player()
+    elif message.content[:7] == "`volume":
+        await krill_player.stop_player(messsage.content[8:11])
 
 
 async def return_url(url):
